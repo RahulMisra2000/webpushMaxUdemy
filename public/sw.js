@@ -221,6 +221,8 @@ self.addEventListener('sync', function(event) {
   }
 });
 
+
+// ********** When the user clicks on the Notification pop up *************************************
 self.addEventListener('notificationclick', function(event) {
   var notification = event.notification;
   var action = event.action;
@@ -228,25 +230,25 @@ self.addEventListener('notificationclick', function(event) {
   console.log(notification);
 
   if (action === 'confirm') {
-    console.log('Confirm was chosen');
-    notification.close();
+        console.log('Confirm was chosen');
+        notification.close();
   } else {
-    console.log(action);
-    event.waitUntil(
-      clients.matchAll()
-        .then(function(clis) {
-          var client = clis.find(function(c) {
-            return c.visibilityState === 'visible';
-          });
+        console.log(action);
+        event.waitUntil(
+          clients.matchAll()            // *** Clients refers to ALL the windows/tabs that are under the control of this SW ***********
+            .then(function(cList) {     // *** cList is an array of the above 
+                  var client = cList.find(function(c) {              // **** I am interested in the first 
+                      return c.visibilityState === 'visible';       //      visible window 
+                  });
 
-          if (client !== undefined) {
-            client.navigate(notification.data.url);
-            client.focus();
-          } else {
-            clients.openWindow(notification.data.url);
-          }
-          notification.close();
-        })
+                  if (client !== undefined) {                       // **** Found a visible window
+                      client.navigate(notification.data.url);       //      so, navigate to the url in the found window
+                      client.focus();
+                  } else {
+                      clients.openWindow(notification.data.url);    // *** Did not find one so, open a new window and navigate to the url
+                  }
+                  notification.close();
+            })
     );
   }
 });
