@@ -81,7 +81,10 @@ function configurePushSub() {
           //          1) real-time database 
           //          2) we can write functions that get exposed as an API to the outside world
           //          3) we can host our application also .... it is a hosting service too 
-          //          The one below is an example 
+          //          Here, https://pwagram-99adf.firebaseio.com is the firebase database and by adding a /x.json at the end
+          //          we are creating a collection (think table) in the database called x. In the example below it is 
+          //          called subscription. And if we send a POST request with data, then that data becomes records in the subscription
+          //          table. Basically, we are saving the subscription objects there.
           return fetch('https://pwagram-99adf.firebaseio.com/subscriptions.json', {
                       method: 'POST',
                       headers: {
