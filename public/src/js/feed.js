@@ -125,7 +125,9 @@ if ('indexedDB' in window) {
 }
 
 function sendData() {
-  fetch('https://us-central1-pwagram-99adf.cloudfunctions.net/storePostData', {
+  // ************************* This is the REST API endpoint (called FUNCTIONS in Firebase lingo) we created and deployed in Firebase
+  // ************************* It is here https://github.com/RahulMisra2000/webpushMaxUdemy/blob/master/functions/index.js
+    fetch('https://us-central1-pwagram-99adf.cloudfunctions.net/storePostData', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
