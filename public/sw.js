@@ -255,6 +255,8 @@ self.addEventListener('notificationclose', function(event) {
   console.log('Notification was closed', event);
 });
 
+
+// ****************** Receiving Push Messages from the Messaging Server **************************************
 self.addEventListener('push', function(event) {
   console.log('Push Notification received', event);
 
